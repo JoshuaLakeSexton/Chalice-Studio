@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Media to Supabase</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #F7EED2;
+      padding: 40px 20px;
+      color: #362C28;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #5A3710;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .upload-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 6px;
+      border: 2px dashed #ddd;
+    }
+    .upload-section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #362C28;
+    }
+    .file-list {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    input[type="file"] {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    button {
+      background: #5A3710;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #A92424;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .progress {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 4px;
+      display: none;
+    }
+    .error {
+      margin-top: 20px;
+      padding: 15px;
+      background: #ffebee;
+      border-radius: 4px;
+      color: #c62828;
+      display: none;
+    }
+    .success {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 4px;
+      color: #2e7d32;
+      display: none;
+    }
+    .log {
+      margin-top: 10px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+    .log-item {
+      margin-bottom: 5px;
+      padding: 5px;
+    }
+    .log-item.success {
+      color: #2e7d32;
+    }
+    .log-item.error {
+      color: #c62828;
+    }
+    .instructions {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 30px;
+    }
+    .instructions h3 {
+      margin-bottom: 10px;
+      color: #856404;
+    }
+    .instructions ol {
+      margin-left: 20px;
+      color: #856404;
+    }
+    .instructions li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Media to Supabase</h1>
+    <p class="subtitle">Upload your images and videos to complete the Chalice Studio website</p>
+
+    <div class="instructions">
+      <h3>📋 Required Files</h3>
+      <p style="margin-bottom: 15px;">You need to upload the following files to make your website work:</p>
+      <ol>
+        <li><strong>Images folder (9 files):</strong> Armor.png, Chalice.png, Harp.png, Helmet.png, KnightsCompany.png, Meal.png, Onward.png, Shield.png, Sword.png</li>
+        <li><strong>Work folder (7 files):</strong> 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, BathingEvolvedChalice.mp4</li>
+        <li><strong>Video folder (2 files):</strong> Chalicelogo.mp4, HeroVid.mp4</li>
+      </ol>
+    </div>
+
+    <div class="upload-section">
+      <h2>📁 Images Folder</h2>
+      <div class="file-list">
+        Required files: Armor.png, Chalice.png, Harp.png, Helmet.png, KnightsCompany.png, Meal.png, Onward.png, Shield.png, Sword.png
+      </div>
+      <input type="file" id="images" multiple accept="image/*">
+      <button onclick="uploadImages()">Upload Images</button>
+    </div>
+
+    <div class="upload-section">
+      <h2>🎨 Work Folder</h2>
+      <div class="file-list">
+        Required files: 1.png, 2.png, 3.png, 4.png, 5.png, 6.png, BathingEvolvedChalice.mp4
+      </div>
+      <input type="file" id="work" multiple accept="image/*,video/*">
+      <button onclick="uploadWork()">Upload Work Files</button>
+    </div>
+
+    <div class="upload-section">
+      <h2>🎬 Video Folder</h2>
+      <div class="file-list">
+        Required files: Chalicelogo.mp4, HeroVid.mp4
+      </div>
+      <input type="file" id="videos" multiple accept="video/*">
+      <button onclick="uploadVideos()">Upload Videos</button>
+    </div>
+
+    <div class="progress" id="progress"></div>
+    <div class="error" id="error"></div>
+    <div class="success" id="success"></div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://wavzpyikbcztvsjbesru.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhdnpweWlrYmN6dHZzamJlc3J1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NzQxMjcsImV4cCI6MjA3ODQ1MDEyN30.O6JwQpVWNPm7m0-d4B2gBupnNXvcHf3-RmIdOyQJ0sQ';
+
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    function showProgress(message) {
+      const progress = document.getElementById('progress');
+      progress.textContent = message;
+      progress.style.display = 'block';
+    }
+
+    function showError(message) {
+      const error = document.getElementById('error');
+      error.textContent = message;
+      error.style.display = 'block';
+    }
+
+    function showSuccess(message) {
+      const success = document.getElementById('success');
+      success.textContent = message;
+      success.style.display = 'block';
+    }
+
+    function addLog(message, isError = false) {
+      const log = document.getElementById('log');
+      log.style.display = 'block';
+      const item = document.createElement('div');
+      item.className = `log-item ${isError ? 'error' : 'success'}`;
+      item.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+      log.appendChild(item);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function uploadFiles(files, folder) {
+      document.getElementById('error').style.display = 'none';
+      document.getElementById('success').style.display = 'none';
+      document.getElementById('log').innerHTML = '';
+
+      if (files.length === 0) {
+        showError('Please select files to upload');
+        return;
+      }
+
+      showProgress(`Uploading ${files.length} file(s) to ${folder}...`);
+
+      let successCount = 0;
+      let errorCount = 0;
+
+      for (const file of files) {
+        try {
+          addLog(`Uploading ${file.name}...`);
+
+          const filePath = `${folder}/${file.name}`;
+          const { data, error } = await supabaseClient.storage
+            .from('media')
+            .upload(filePath, file, {
+              upsert: true,
+              contentType: file.type
+            });
+
+          if (error) {
+            addLog(`Error uploading ${file.name}: ${error.message}`, true);
+            errorCount++;
+          } else {
+            addLog(`✓ Successfully uploaded ${file.name}`);
+            successCount++;
+          }
+        } catch (err) {
+          addLog(`Error uploading ${file.name}: ${err.message}`, true);
+          errorCount++;
+        }
+      }
+
+      document.getElementById('progress').style.display = 'none';
+
+      if (errorCount === 0) {
+        showSuccess(`✅ Successfully uploaded all ${successCount} file(s) to ${folder}!`);
+      } else {
+        showError(`⚠️ Uploaded ${successCount} file(s), but ${errorCount} failed. Check the log below.`);
+      }
+    }
+
+    async function uploadImages() {
+      const input = document.getElementById('images');
+      await uploadFiles(Array.from(input.files), 'Images');
+    }
+
+    async function uploadWork() {
+      const input = document.getElementById('work');
+      await uploadFiles(Array.from(input.files), 'Work');
+    }
+
+    async function uploadVideos() {
+      const input = document.getElementById('videos');
+      await uploadFiles(Array.from(input.files), 'video');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+@font-face {
+  font-family: 'Bluu Next';
+  src: url('/BluuNext-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  html.lenis {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  body {
+    font-family: 'IM Fell English', serif;
+    color: #362C28;
+    overscroll-behavior: none;
+    cursor: none;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: #8B5A3C;
+    transform: translate(-50%, -50%) rotate(45deg);
+    pointer-events: none;
+    z-index: 9999;
+    left: var(--mouse-x, -100px);
+    top: var(--mouse-y, -100px);
+    transition: left 0.02s linear, top 0.02s linear;
+    will-change: left, top;
+  }
+
+  h1, h2 {
+    font-family: 'Bluu Next', serif;
+    font-weight: 700;
+  }
+
+  [data-fade-in],
+  [data-fade-in-fast],
+  [data-scale-in],
+  [data-stagger],
+  [data-parallax] {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+  video {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+  img {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer utilities {
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .smooth-transform {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
