@@ -1,37 +1,19 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
-const OUT_DIRS = ["dist", "build", "public"];
-const BADGE_RE = /<script[^>]*src="https:\/\/bolt\.new\/badge\.js[^"]*"[^>]*>\s*<\/script>/g;
+const distIndex = path.join(process.cwd(), "dist", "index.html");
 
-function walk(dir) {
-  if (!fs.existsSync(dir)) return [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  const files = [];
-  for (const e of entries) {
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) files.push(...walk(p));
-    else files.push(p);
-  }
-  return files;
+if (!fs.existsSync(distIndex)) {
+  console.log("[remove-bolt-badge] dist/index.html not found:", distIndex);
+  process.exit(0);
 }
 
-let changed = 0;
+let html = fs.readFileSync(distIndex, "utf8");
 
-for (const out of OUT_DIRS) {
-  const abs = path.resolve(out);
-  const files = walk(abs).filter((f) => f.endsWith(".html"));
-  for (const f of files) {
-    const html = fs.readFileSync(f, "utf8");
-    const next = html.replace(BADGE_RE, "");
-    if (next !== html) {
-      fs.writeFileSync(f, next, "utf8");
-      changed++;
-      console.log(`Removed Bolt badge from: ${f}`);
-    }
-  }
-}
+html = html.replace(
+  /<script\b[^>]*src=["']https:\/\/bolt\.new\/badge\.js[^"']*["'][^>]*>\s*<\/script>\s*/gi,
+  ""
+);
 
-if (changed === 0) {
-  console.log("No Bolt badge script found.");
-}
+fs.writeFileSync(distIndex, html, "utf8");
+console.log("[remove-bolt-badge] cleaned dist/index.html");
