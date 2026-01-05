@@ -3,8 +3,8 @@
   command = "npm run build"
   publish = "dist"
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Security-Policy = "script-src 'self'; object-src 'none'; base-uri 'self'"
-    
+[[redirects]]
+  from = "https://bolt.new/*"
+  to = "/404"
+  status = 404
+  force = true
