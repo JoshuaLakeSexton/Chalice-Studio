@@ -2,9 +2,3 @@
   base = "Chal"
   command = "npm run build"
   publish = "dist"
-
-[[redirects]]
-  from = "https://bolt.new/*"
-  to = "/404"
-  status = 404
-  force = true
