@@ -25,20 +25,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/Fav.png" />
     <meta name="theme-color" content="#000000" />
   </head>
-  <script>
-  (function () {
-    const kill = () => {
-      const sels = ['[class*="bolt" i]','[id*="bolt" i]','a[href*="bolt" i]','iframe[src*="bolt" i]'];
-      document.querySelectorAll(sels.join(',')).forEach(n => n.remove());
-      document.querySelectorAll('body *').forEach(el => {
-        const t = (el.innerText || '').trim();
-        if (t.includes('Made in Bolt')) el.remove();
-      });
-    };
-    kill();
-    setInterval(kill, 500);
-  })();
-</script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
