@@ -2,3 +2,7 @@
   base = "Chal"
   command = "npm run build"
   publish = "dist"
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; object-src 'none'; base-uri 'self';"
