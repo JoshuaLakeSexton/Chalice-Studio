@@ -42,5 +42,32 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+(() => {
+  const removeBoltBadge = () => {
+    // 1) Remove the known fixed-position host container (what your screenshot selected)
+    document.querySelectorAll('div[style*="position: fixed"][style*="z-index: 2147483647"]')
+      .forEach(el => el.remove());
+
+    // 2) Extra safety: remove any element that has a shadowRoot containing "Made in Bolt"
+    document.querySelectorAll('body *').forEach(el => {
+      try {
+        if (el.shadowRoot && el.shadowRoot.textContent && el.shadowRoot.textContent.includes('Made in Bolt')) {
+          el.remove();
+        }
+      } catch (e) {}
+    });
+  };
+
+  removeBoltBadge();
+
+  // Watch for it being re-injected
+  const obs = new MutationObserver(removeBoltBadge);
+  obs.observe(document.documentElement, { childList: true, subtree: true });
+
+  // Fallback in case something is super aggressive
+  setInterval(removeBoltBadge, 500);
+})();
+</script>
   </body>
 </html>
