@@ -1,89 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Chalice Studio",
-  "url": "https://www.chalice.studio/",
-  "logo": "https://www.chalice.studio/logo.png",
-  "sameAs": [
-    "https://www.facebook.com/YOURPAGE",
-    "https://www.instagram.com/YOURHANDLE"
-  ]
-}
-</script>
-<title>Chalice Studio | Branding & Websites for Small Businesses</title>
-
-<link rel="canonical" href="https://www.chalice.studio/" />
-
-<meta name="description" content="Chalice Studio designs logos, brand identity, and high-performance websites for small businesses—fast, affordable, and built to convert." />
-
-<meta name="robots" content="index,follow" />
-<meta charset="UTF-8" />
-  <meta property="og:type" content="website" />
-<meta property="og:title" content="Chalice Studio | Branding & Websites for Small Businesses" />
-<meta property="og:description" content="Logos, brand identity, and fast websites for small businesses—built to convert." />
-<meta property="og:url" content="https://www.chalice.studio/" />
-<meta property="og:image" content="https://www.chalice.studio/og.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Chalice Studio | Branding & Websites for Small Businesses" />
-<meta name="twitter:description" content="Logos, brand identity, and fast websites for small businesses—built to convert." />
-<meta name="twitter:image" content="https://www.chalice.studio/og.jpg" />
-<style>
-    /* Kill the Bolt badge no matter how it is injected */
-    [class*="bolt" i],
-    [id*="bolt" i],
-    a[href*="bolt" i],
-    iframe[src*="bolt" i] {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-    }
-  </style>
+    <!-- Required fundamentals -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chalice Studio</title>
 
+    <!-- Primary SEO -->
+    <title>Chalice Studio | Branding & Websites for Small Businesses</title>
+    <link rel="canonical" href="https://www.chalice.studio/" />
+    <meta
+      name="description"
+      content="Chalice Studio designs logos, brand identity, and high-performance websites for small businesses—fast, affordable, and built to convert."
+    />
+    <meta name="robots" content="index,follow" />
+
+    <!-- Favicons / theme -->
     <link rel="icon" type="image/png" href="/Fav.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/Fav.png" sizes="16x16" />
     <link rel="apple-touch-icon" sizes="180x180" href="/Fav.png" />
     <meta name="theme-color" content="#000000" />
+
+    <!-- Open Graph (Facebook/LinkedIn/iMessage) -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Chalice Studio | Branding & Websites for Small Businesses"
+    />
+    <meta
+      property="og:description"
+      content="Logos, brand identity, and fast websites for small businesses—built to convert."
+    />
+    <meta property="og:url" content="https://www.chalice.studio/" />
+    <!-- Make sure this file exists at /public/og.jpg -->
+    <meta property="og:image" content="https://www.chalice.studio/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Chalice Studio | Branding & Websites for Small Businesses"
+    />
+    <meta
+      name="twitter:description"
+      content="Logos, brand identity, and fast websites for small businesses—built to convert."
+    />
+    <meta name="twitter:image" content="https://www.chalice.studio/og.jpg" />
+
+    <!-- Structured Data (Organization) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Chalice Studio",
+        "url": "https://www.chalice.studio/",
+        "logo": "https://www.chalice.studio/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/YOURPAGE",
+          "https://www.instagram.com/YOURHANDLE"
+        ]
+      }
+    </script>
+
+    <!-- Hide Bolt badge (cosmetic) -->
+    <style>
+      [class*="bolt" i],
+      [id*="bolt" i],
+      a[href*="bolt" i],
+      iframe[src*="bolt" i] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    </style>
+
+    <!-- App bundle (keep your existing hashed filenames) -->
+    <script type="module" crossorigin src="/assets/index-DeQYZJp9.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B71YKovw.css" />
   </head>
+
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Remove Bolt badge if injected via fixed container / shadow DOM -->
     <script>
-(() => {
-  const removeBoltBadge = () => {
-    // 1) Remove the known fixed-position host container (what your screenshot selected)
-    document.querySelectorAll('div[style*="position: fixed"][style*="z-index: 2147483647"]')
-      .forEach(el => el.remove());
+      (() => {
+        const removeBoltBadge = () => {
+          document
+            .querySelectorAll('div[style*="position: fixed"][style*="z-index: 2147483647"]')
+            .forEach((el) => el.remove());
 
-    // 2) Extra safety: remove any element that has a shadowRoot containing "Made in Bolt"
-    document.querySelectorAll('body *').forEach(el => {
-      try {
-        if (el.shadowRoot && el.shadowRoot.textContent && el.shadowRoot.textContent.includes('Made in Bolt')) {
-          el.remove();
-        }
-      } catch (e) {}
-    });
-  };
+          document.querySelectorAll("body *").forEach((el) => {
+            try {
+              if (
+                el.shadowRoot &&
+                el.shadowRoot.textContent &&
+                el.shadowRoot.textContent.includes("Made in Bolt")
+              ) {
+                el.remove();
+              }
+            } catch (e) {}
+          });
+        };
 
-  removeBoltBadge();
-
-  // Watch for it being re-injected
-  const obs = new MutationObserver(removeBoltBadge);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
-
-  // Fallback in case something is super aggressive
-  setInterval(removeBoltBadge, 500);
-})();
-</script>
+        removeBoltBadge();
+        const obs = new MutationObserver(removeBoltBadge);
+        obs.observe(document.documentElement, { childList: true, subtree: true });
+        setInterval(removeBoltBadge, 500);
+      })();
+    </script>
   </body>
 </html>
