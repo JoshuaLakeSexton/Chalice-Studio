@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/Fav.png" />
     <meta name="theme-color" content="#000000" />
 
-    <!-- Open Graph (Facebook/LinkedIn/iMessage) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
@@ -31,7 +31,6 @@
       content="Logos, brand identity, and fast websites for small businesses—built to convert."
     />
     <meta property="og:url" content="https://www.chalice.studio/" />
-    <!-- Make sure this file exists at /public/og.jpg -->
     <meta property="og:image" content="https://www.chalice.studio/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -48,68 +47,28 @@
     />
     <meta name="twitter:image" content="https://www.chalice.studio/og.jpg" />
 
-    <!-- Structured Data (Organization) -->
+    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Chalice Studio",
         "url": "https://www.chalice.studio/",
-        "logo": "https://www.chalice.studio/logo.png",
-        "sameAs": [
-          "https://www.facebook.com/YOURPAGE",
-          "https://www.instagram.com/YOURHANDLE"
-        ]
+        "logo": "https://www.chalice.studio/logo.png"
       }
     </script>
-
-    <!-- Hide Bolt badge (cosmetic) -->
-    <style>
-      [class*="bolt" i],
-      [id*="bolt" i],
-      a[href*="bolt" i],
-      iframe[src*="bolt" i] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-      }
-    </style>
-
-    <!-- App bundle (keep your existing hashed filenames) -->
-    <script type="module" crossorigin src="/assets/index-DeQYZJp9.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-B71YKovw.css" />
   </head>
 
   <body>
     <div id="root"></div>
 
-    <!-- Remove Bolt badge if injected via fixed container / shadow DOM -->
-    <script>
-      (() => {
-        const removeBoltBadge = () => {
-          document
-            .querySelectorAll('div[style*="position: fixed"][style*="z-index: 2147483647"]')
-            .forEach((el) => el.remove());
-
-          document.querySelectorAll("body *").forEach((el) => {
-            try {
-              if (
-                el.shadowRoot &&
-                el.shadowRoot.textContent &&
-                el.shadowRoot.textContent.includes("Made in Bolt")
-              ) {
-                el.remove();
-              }
-            } catch (e) {}
-          });
-        };
-
-        removeBoltBadge();
-        const obs = new MutationObserver(removeBoltBadge);
-        obs.observe(document.documentElement, { childList: true, subtree: true });
-        setInterval(removeBoltBadge, 500);
-      })();
-    </script>
+    <!-- ✅ Vite source entry (use ONE that exists in your repo) -->
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- If your project is NOT TSX, replace the line above with ONE of these:
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.js"></script>
+    -->
   </body>
 </html>
+
