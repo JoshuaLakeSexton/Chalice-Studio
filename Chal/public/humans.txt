@@ -1,3 +1,4 @@
+<link rel="author" href="/humans.txt">
 Chalice Studio
 Founded by: Joshua Sexton
 Location: Lancaster County, PA
